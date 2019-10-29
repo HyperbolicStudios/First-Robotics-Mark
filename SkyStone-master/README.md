@@ -15,7 +15,10 @@ Understanding the structure:
  It's pretty straightforward to understand, even for those who've never touched code before.
 
 
-The following text is from FIRST:
+The following text is from FIRST. Don't bother reading it; it's not very useful for you.
+
+
+
 ## NOTICE
 
 This repository contains the public FTC SDK for the SKYSTONE (2019-2020) competition season.  
