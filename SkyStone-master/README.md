@@ -1,3 +1,21 @@
+##HELLO, ROBOTICS TEAM!
+This code probably looks complicated to you! It isn't, really. Long story short, but a lot of the code here is given directly by FIRST and it handles a lot of the complicated stuff we need to make our robot work.
+
+"What's Github?"
+ - Github is just a place to store code. Think of it like Google Drive, but for code.
+
+Myself (Mark, i.e. Hyperbolic) and Josh are doing the core programming for now, but if you've either got some programming experience, or want to learn the basics, OR if you simply have a neat idea you'd like to share, we'd love for you to help.
+
+For people with programming experience: we use standard Github procedure to manage the code. The Master branch is the currently functional program that is on the robot, and we'll try not to edit it unless if we're on the fly. IF YOU WANT TO EDIT IT, PLEASE CREATE A NEW BRANCH. This makes it easier for everyone to figure out which versions are actually functional, and which are in progress.
+
+Understanding the structure:
+ - 90% of the files here are provided by FIRST, and are not relevant. The file that IS relevant is the file at: 
+ SkyStone-master/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/MyFIRSTJavaOpMode.java
+ 
+ It's pretty straightforward to understand, even for those who've never touched code before.
+
+
+The following text is from FIRST:
 ## NOTICE
 
 This repository contains the public FTC SDK for the SKYSTONE (2019-2020) competition season.  
