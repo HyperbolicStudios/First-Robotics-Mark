@@ -1,4 +1,4 @@
-##HELLO, ROBOTICS TEAM!
+## HELLO, ROBOTICS TEAM!
 This code probably looks complicated to you! It isn't, really. Long story short, but a lot of the code here is given directly by FIRST and it handles a lot of the complicated stuff we need to make our robot work.
 
 "What's Github?"
