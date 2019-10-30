@@ -1,18 +1,32 @@
 ## HELLO, ROBOTICS TEAM!
 This code probably looks complicated to you! It isn't, really. Long story short, but a lot of the code here is given directly by FIRST and it handles a lot of the complicated stuff we need to make our robot work.
 
-"What's Github?"
- - Github is just a place to store code. Think of it like Google Drive, but for code.
 
 Myself (Mark, i.e. Hyperbolic) and Josh are doing the core programming for now, but if you've either got some programming experience, or want to learn the basics, OR if you simply have a neat idea you'd like to share, we'd love for you to help.
 
-For people with programming experience: we use standard Github procedure to manage the code. The Master branch is the currently functional program that is on the robot, and we'll try not to edit it unless if we're on the fly. IF YOU WANT TO EDIT IT, PLEASE CREATE A NEW BRANCH. This makes it easier for everyone to figure out which versions are actually functional, and which are in progress.
 
-Understanding the structure:
+
+Some Q's and A's:
+
+"What's Github?"
+ - Github is just a place to store code. Think of it like Google Drive, but for code.
+ 
+Understanding Github Structure:
+ - There are three "Branches", or copies of the code. The first, "master", is the code that is currently on the robot. The second, "Testing", is the code that is currently being worked on. The third, "basic", is just a simple program that we know works. (THis file, in fact, is in the master branch)
+ 
+ We use these branches to keep code organized, and to revert to original code if something doesn't work properly. When code that is in "Testing" has been tested on the robot and has been approved for use, it is "merged" into the master branch. (That is, it becomes the master branch". This means that if temporary code from the testing branch is put on the robot and it doesn't work, we can always revert back to the master branch code.
+ 
+Understanding the code structure:
  - 90% of the files here are provided by FIRST, and are not relevant. The file that IS relevant is the file at: 
  SkyStone-master/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/MyFIRSTJavaOpMode.java
  
  It's pretty straightforward to understand, even for those who've never touched code before.
+
+
+"I don't understand a thing!"
+
+ - If you don't want to, you don't need to.
+ - If you do want to, but still don't, talk to someone who does! We'll be happy to help!
 
 
 The following text is from FIRST. Don't bother reading it; it's not very useful for you.
