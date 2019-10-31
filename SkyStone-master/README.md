@@ -1,38 +1,3 @@
-## HELLO, ROBOTICS TEAM!
-This code probably looks complicated to you! It isn't, really. Long story short, but a lot of the code here is given directly by FIRST and it handles a lot of the complicated stuff we need to make our robot work.
-
-
-Myself (Mark, i.e. Hyperbolic) and Josh are doing the core programming for now, but if you've either got some programming experience, or want to learn the basics, OR if you simply have a neat idea you'd like to share, we'd love for you to help.
-
-
-
-Some Q's and A's:
-
-"What's Github?"
- - Github is just a place to store code. Think of it like Google Drive, but for code.
- 
-Understanding Github Structure:
- - There are three "Branches", or copies of the code. The first, "master", is the code that is currently on the robot. The second, "Testing", is the code that is currently being worked on. The third, "basic", is just a simple program that we know works. (THis file, in fact, is in the master branch)
- 
- We use these branches to keep code organized, and to revert to original code if something doesn't work properly. When code that is in "Testing" has been tested on the robot and has been approved for use, it is "merged" into the master branch. (That is, it becomes the master branch". This means that if temporary code from the testing branch is put on the robot and it doesn't work, we can always revert back to the master branch code.
- 
-Understanding the code structure:
- - 90% of the files here are provided by FIRST, and are not relevant. The file that IS relevant is the file at: 
- SkyStone-master/TeamCode/src/main/java/org/firstinspires/ftc/teamcode/MyFIRSTJavaOpMode.java
- 
- It's pretty straightforward to understand, even for those who've never touched code before.
-
-
-"I don't understand a thing!"
-
- - If you don't want to, you don't need to.
- - If you do want to, but still don't, talk to someone who does! We'll be happy to help!
-
-
-The following text is from FIRST. Don't bother reading it; it's not very useful for you.
-
-
-
 ## NOTICE
 
 This repository contains the public FTC SDK for the SKYSTONE (2019-2020) competition season.  
@@ -86,38 +51,6 @@ For technical questions regarding the Control System or the FTC SDK, please visi
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[FTC Technology Forum](https://ftcforum.usfirst.org/forumdisplay.php?156-FTC-Technology)
 
 
-**************************************************************************************
-# Release Information
-**************************************************************************************
-
-Version 5.3 (20191004-112306)
-
-* Fixes external USB/UVC webcam support
-* Makes various bugfixes and improvements to Blocks page, including but not limited to:
-    * Many visual tweaks
-    * Browser zoom and window resize behave better
-    * Resizing the Java preview pane works better and more consistently across browsers
-    * The Java preview pane consistently gets scrollbars when needed
-    * The Java preview pane is hidden by default on phones
-    * Internet Explorer 11 should work
-    * Large dropdown lists display properly on lower res screens
-    * Disabled buttons are now visually identifiable as disabled
-    * A warning is shown if a user selects a TFOD sample, but their device is not compatible
-    * Warning messages in a Blocks op mode are now visible by default.
-* Adds goBILDA 5201 and 5202 motors to Robot Configurator
-* Adds PIDF Annotation values to AndyMark, goBILDA and TETRIX motor configurations.
-    This has the effect of causing the RUN_USING_ENCODERS and RUN_TO_POSITION modes to use 
-    PIDF vs PID closed loop control on these motors.  This should provide more responsive, yet stable, speed control.  
-    PIDF adds Feedforward control to the basic PID control loop.
-    Feedforward is useful when controlling a motor's speed because it "anticipates" how much the control voltage 
-    must change to achieve a new speed set-point, rather than requiring the integrated error to change sufficiently. 
-    The PIDF values were chosen to provide responsive, yet stable, speed control on a lightly loaded motor.
-    The more heavily a motor is loaded (drag or friction), the more noticable the PIDF improvement will be.
-* Fixes startup crash on Android 10
-* Fixes [ftc_app issue #712](https://github.com/ftctechnh/ftc_app/issues/712) (thanks to FROGbots-4634)
-* Fixes [ftc_app issue #542](https://github.com/ftctechnh/ftc_app/issues/542)
-* Allows "A" and lowercase letters when naming device through RC and DS apps.
-    
 **************************************************************************************
 # Release Information
 **************************************************************************************
