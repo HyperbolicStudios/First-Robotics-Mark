@@ -18,7 +18,6 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
     private DcMotor motorRight;
     private DcMotor arm1;
     private DcMotor arm2;
-    //private  DcMotor arm21;
     private Servo Grab;
     private DistanceSensor sensorCRFront;
 
@@ -45,25 +44,32 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         double y;
         double h;
         while (opModeIsActive()) {
-            x = this.gamepad1.left_stick_x;
-            y = this.gamepad1.left_stick_y;
-            h = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+            x = this.gamepad1.left_stick_x; //Get x value
+            y = this.gamepad1.left_stick_y; //Get y value
+            h = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); //Get distance from center ("h")
 
-            powerLeft = -h;
+            powerLeft = -h; //Set initial power value
             powerRight = h;
 
-            if (gamepad1.left_bumper) {
-                powerLeft *= -1;
-            } else if (gamepad1.right_bumper) {
-                powerRight *= -1;
+            if (x > 0) { //If the joystick is on the right (range from 0 to 1)
+                powerRight *= x; //Multiply the right motor by x
+            } else if (x < 0) {//If the joystick is on the left (range from -1 to 0)
+                powerLeft *= x; //Multiply the left motor by x
             }
 
-            if (x > 0) {
-                powerRight *= x;
-            } else if (x < 0) {
-                powerLeft *= x;
+
+//Check if the bumper is pressed; this caused a pivot
+
+            if (gamepad1.left_bumper) //Pivot Counterclockwise
+                powerRight = 1; //Maximum right power
+                powerLeft = 1; //Maximum left power (other direction)
+            } else if (gamepad1.right_bumper) { //Clockwise direction
+                powerRight = -1; //Likewise
+                powerLeft = -1;
+
             }
 
+//At this point, the drive motors have been set.
 
             if(gamepad1.a){
                 Grab.setPosition(1);
@@ -74,19 +80,26 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             }
 
 
+//Set arm power equal to the position of the RIGHT STICK
+            armPower = this.gamepad1.right_stick_x;
+            armPower2 = this.gamepad1.right_stick_y;
 
-            armPower = this.gamepad1.right_trigger;
-            armPower2 = this.gamepad1.left_trigger;
 
-            motorLeft.setPower(powerLeft);
+
+//TRANSMIT POWER INFO TO HUB
+            motorLeft.setPower(powerLeft); //Drive
             motorRight.setPower((powerRight));
-            arm1.setPower(armPower);
-            arm2.setPower(-armPower);
-            arm21.setPower(armPower2);
-            telemetry.addData("Left Motor Power", motorLeft.getPower());
-            telemetry.addData("Right Motor Power", motorRight.getPower());
+
+            arm1.setPower(armPower); //Arm 1
+            arm2.setPower(armPower2); //Arm 2
+
+
+
+
+            telemetry.addData("Left Drive Motor Power", motorLeft.getPower());
+            telemetry.addData("Right Drive Motor Power", motorRight.getPower());
             telemetry.addData("Stage 1 Power", arm1.getPower());
-            //telemetry.addData("Stage 2 Power", arm21.getPower());
+            telemetry.addData("Stage 2 Power", arm2.getPower());
             telemetry.addData("Servo Position", Grab.getPosition());
             telemetry.addData("Distance (cm)", sensorCRFront.getDistance(DistanceUnit.CM));
             telemetry.addData("Status", "Running");
