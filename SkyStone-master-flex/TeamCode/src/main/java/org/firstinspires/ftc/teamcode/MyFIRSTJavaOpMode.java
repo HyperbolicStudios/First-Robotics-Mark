@@ -58,7 +58,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             }
 
 
-//Check if the bumper is pressed; this caused a pivot
+//Check if the bumper is pressed; this causes a pivot. A pivot will OVERRIDE previous math done.
 
             if (gamepad1.left_bumper) //Pivot Counterclockwise
                 powerRight = 1; //Maximum right power
@@ -71,7 +71,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
 
 //At this point, the drive motors have been set.
 
-            if(gamepad1.a){
+            if(gamepad1.a){ //Grabber
                 Grab.setPosition(1);
             } else if (gamepad1.b) {
                 Grab.setPosition(0);
