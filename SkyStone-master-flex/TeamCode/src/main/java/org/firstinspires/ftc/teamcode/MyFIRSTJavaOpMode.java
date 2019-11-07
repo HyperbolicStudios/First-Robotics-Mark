@@ -41,7 +41,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         double powerLeft = 0;
         double powerRight = 0;
         double armPower = 0;
-        double armPower2 = 0;
+      //  double armPower2 = 0;
         double x;
         double y;
         double h;
