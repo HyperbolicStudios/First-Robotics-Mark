@@ -50,6 +50,10 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             y = this.gamepad1.left_stick_y; //Get y value
             h = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); //Get distance from center ("h")
 
+            if(y < 0) { //allow reverse movement
+              h = h*-1;
+            }
+
             powerLeft = -h; //Set initial power value
             powerRight = h;
 
@@ -72,19 +76,32 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
 
 //At this point, the drive motors have been set.
 
-        if(gamepad1.a){ //Grabber
-            Grab.setPosition(1);
+        if(gamepad1.a){ //First Stage Arm
+            armPower = 0.5;
         } else if (gamepad1.b) {
+            armPower = -0.5;
+        } else {
+            armPower = 0;;
+        }
+
+        if(gamepad1.c){ //First Stage Arm
+            armPowe2 = 0.5;
+        } else if (gamepad1.d) {
+            armPower2 = -0.5;
+        } else {
+            armPower2 = 0;;
+        }
+
+        if(this.gamepad1.right_stick_y < 0){ //Grabber
+            Grab.setPosition(1);
+        } else if (this.gamepad1.right_stick_y > 0) {
             Grab.setPosition(0);
         } else {
             Grab.setPosition(.5);
         }
 
 
-//Set arm power equal to the position of the RIGHT STICK
-        armPower = 0.5*(this.gamepad1.right_stick_x);
-        armPower2 = 0.5*(this.gamepad1.right_stick_y);
-
+    
 
 
 //TRANSMIT POWER INFO TO HUB
