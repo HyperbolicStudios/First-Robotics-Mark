@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,13 +12,13 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorREVColorDistance;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@Autonomous //FIX
+@TeleOp //FIX
 
 public class MyFIRSTJavaOpMode extends LinearOpMode {
     private DcMotor motorLeft;
     private DcMotor motorRight;
-    private DcMotor arm1;
-    private DcMotor arm2;
+    private DcMotor armA1;
+    private DcMotor armA2;
 
     private Servo Grab;
     private DistanceSensor sensorCRFront;
@@ -30,7 +31,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         motorRight = hardwareMap.get(DcMotor.class, "right");
         armA1 = hardwareMap.get(DcMotor.class, "ArmA1");
         armA2 = hardwareMap.get(DcMotor.class, "ArmA2");//digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
-        armB1 = hardwareMap.get(DcMotor.class, "ArmB1");//digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
+      //  armB1 = hardwareMap.get(DcMotor.class, "ArmB1");//digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
         //armB2 = hardwareMap.get(DcMotor.class, "ArmB2");
         Grab = hardwareMap.get(Servo.class, "Grab");
         sensorCRFront = hardwareMap.get(DistanceSensor.class, "sensorColorRangeFront");
@@ -41,7 +42,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         double powerLeft = 0;
         double powerRight = 0;
         double armPower = 0;
-      //  double armPower2 = 0;
+        double armPower2 = 0;
         double x;
         double y;
         double h;
@@ -51,7 +52,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             h = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); //Get distance from center ("h")
 
             if(y < 0) { //allow reverse movement
-              h = h*-1;
+                h = h*-1;
             }
 
             powerLeft = -h; //Set initial power value
@@ -77,52 +78,56 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
 
 //At this point, the drive motors have been set.
 
-        if(gamepad1.a){ //First Stage Arm
-            armPower = 0.5;
-        } else if (gamepad1.b) {
-            armPower = -0.5;
-        } else {
-            armPower = 0;;
-        }
+            if(gamepad1.a){ //First Stage Arm
+                armPower = 0.4;
+            } else if (gamepad1.b) {
+                armPower = -0.4;
+            } else {
+                armPower = 0.1;
+            }
 
-        if(gamepad1.c){ //First Stage Arm
-            armPowe2 = 0.5;
-        } else if (gamepad1.d) {
-            armPower2 = -0.5;
-        } else {
-            armPower2 = 0;;
-        }
+            if(gamepad1.x){ //Second Stage Arm
+                armPower2 = 0.4;
+                armPower = -0.1;
+            } else if (gamepad1.y) {
+                armPower2 = -0.4;
+                armPower = -0.1;
+            } else {
+                armPower2 = 0.1;
+            }
 
-        if(this.gamepad1.right_stick_y < 0){ //Grabber
-            Grab.setPosition(1);
-        } else if (this.gamepad1.right_stick_y > 0) {
-            Grab.setPosition(0);
-        } else {
-            Grab.setPosition(.5);
-        }
+
+
+            if(this.gamepad1.right_stick_y < 0){ //Grabber
+                Grab.setPosition(1);
+            } else if (this.gamepad1.right_stick_y > 0) {
+                Grab.setPosition(0);
+            } else {
+                Grab.setPosition(.5);
+            }
 
 
 
 
 
 //TRANSMIT POWER INFO TO HUB
-        motorLeft.setPower(powerLeft); //Drive
-        motorRight.setPower((powerRight));
-)
-        armA1.setPower(armPower); //Stage 1
+            motorLeft.setPower(powerLeft); //Drive
+            motorRight.setPower((powerRight));
 
-        armA2.setPower(armPower2); //Stage 2
-    //    armB2.setPower(-armPower2); //Stage 2
+            armA1.setPower(armPower); //Stage 1
+
+            armA2.setPower(armPower2); //Stage 2
+            //    armB2.setPower(-armPower2); //Stage 2
 
 
-        telemetry.addData("Left Drive Motor Power", motorLeft.getPower());
-        telemetry.addData("Right Drive Motor Power", motorRight.getPower());
-        telemetry.addData("Stage 1 Power", armA1.getPower());
-        telemetry.addData("Stage 2 Power", armB1.getPower());
-        telemetry.addData("Servo Position", Grab.getPosition());
-        telemetry.addData("Distance (cm)", sensorCRFront.getDistance(DistanceUnit.CM));
-        telemetry.addData("Status", "Running");
-        telemetry.update();
+            telemetry.addData("Left Drive Motor Power", motorLeft.getPower());
+            telemetry.addData("Right Drive Motor Power", motorRight.getPower());
+            telemetry.addData("Stage 1 Power", armA1.getPower());
+            telemetry.addData("Stage 2 Power", armA2.getPower());
+            telemetry.addData("Servo Position", Grab.getPosition());
+            telemetry.addData("Distance (cm)", sensorCRFront.getDistance(DistanceUnit.CM));
+            telemetry.addData("Status", "Running");
+            telemetry.update();
+        }
     }
-}
 }
