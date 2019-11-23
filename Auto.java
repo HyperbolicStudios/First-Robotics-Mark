@@ -5,6 +5,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 // below is the Annotation that registers this OpMode with the FtcRobotController app.
 // @Autonomous classifies the OpMode as autonomous, name is the OpMode title and the
@@ -15,18 +17,19 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 //@Disabled
 public class Auto extends LinearOpMode
 {
-    DcMotor leftMotor;
-    DcMotor rightMotor;
+    private DcMotor motorLeft;
+    private DcMotor motorRight;
+
 
     // called when init button is  pressed.
 
     @Override
     public void runOpMode() throws InterruptedException
     {
-        leftMotor = hardwareMap.dcMotor.get("left_motor");
-        rightMotor = hardwareMap.dcMotor.get("right_motor");
+        motorLeft = hardwareMap.get(DcMotor.class, "left");
+        motorRight = hardwareMap.get(DcMotor.class, "right");
+        double x = 0;
 
-        leftMotor.setDirection(DcMotor.Direction.REVERSE);
 
         telemetry.addData("Mode", "waiting");
         telemetry.update();
@@ -39,15 +42,18 @@ public class Auto extends LinearOpMode
         telemetry.update();
 
         // set both motors to 25% power.
-
-        leftMotor.setPower(1);
-        rightMotor.setPower(1);
-
-        sleep(2200);        // wait for 2 seconds.
+        sleep(20000);
+        if (x == 0) {
+            motorLeft.setPower(1);
+            motorRight.setPower(-1);
+            x = 1;
+        }
+        sleep(1800);        // wait for 2 seconds.
 
         // set motor power to zero to stop motors.
 
-        leftMotor.setPower(0.0);
-        rightMotor.setPower(0.0);
+        motorLeft.setPower(0.0);
+        motorRight.setPower(0.0);
+        sleep(100000);
     }
 }
