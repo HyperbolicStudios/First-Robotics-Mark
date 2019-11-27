@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
-
+import com.qualcomm.robotcore.hardware.Gamepad;
 import org.firstinspires.ftc.robotcontroller.external.samples.SensorREVColorDistance;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
@@ -18,8 +18,9 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
     private DcMotor motorLeft;
     private DcMotor motorRight;
     private DcMotor armA1;
-    private DcMotor armA2;
-
+    private DcMotor motorStrafe;
+    private Servo chassis1;
+    private Servo chassis2;
     private Servo Grab;
     private DistanceSensor sensorCRFront;
 
@@ -30,10 +31,10 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         motorLeft = hardwareMap.get(DcMotor.class, "left");
         motorRight = hardwareMap.get(DcMotor.class, "right");
         armA1 = hardwareMap.get(DcMotor.class, "ArmA1");
-        armA2 = hardwareMap.get(DcMotor.class, "ArmA2");//digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
-      //  armB1 = hardwareMap.get(DcMotor.class, "ArmB1");//digitalTouch = hardwareMap.get(DigitalChannel.class, "digitalTouch");
-        //armB2 = hardwareMap.get(DcMotor.class, "ArmB2");
+        motorStrafe = hardwareMap.get(DcMotor.class, "strafe");
         Grab = hardwareMap.get(Servo.class, "Grab");
+        chassis1 = hardwareMap.get(Servo.class, "chassis1");
+        chassis2 = hardwareMap.get(Servo.class, "chassis2");
         sensorCRFront = hardwareMap.get(DistanceSensor.class, "sensorColorRangeFront");
         telemetry.addData("Status", "Initialized");
         telemetry.update();         // Wait for the game to start (driver presses PLAY)
@@ -42,7 +43,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         double powerLeft = 0;
         double powerRight = 0;
         double armPower = 0;
-        double armPower2 = 0;
+        double strafePower = 0;
         double x;
         double y;
         double h;
@@ -76,6 +77,18 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 powerLeft = -1;
             }
 
+
+//Check for strafe power - this will not overide other motor powers.
+
+            if (gamepad1.dpad_left) {
+                strafePower = 1;
+            }
+            else if (gamepad1.dpad_right) {
+                strafePower = - 1;
+            }
+            else {
+                strafePower = 0;
+            }
 //At this point, the drive motors have been set.
 
             if(gamepad1.a){ //First Stage Arm
@@ -83,17 +96,16 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             } else if (gamepad1.b) {
                 armPower = -0.4;
             } else {
-                armPower = 0.1;
+                armPower = 0;
             }
 
-            if(gamepad1.x){ //Second Stage Arm
-                armPower2 = 0.4;
-                armPower = -0.1;
-            } else if (gamepad1.y) {
-                armPower2 = -0.4;
-                armPower = -0.1;
-            } else {
-                armPower2 = 0.1;
+            if(gamepad1.x) {
+                chassis1.setPosition(90);
+                chassis1.setPosition(90);
+            }
+            else if(gamepad1.y) {
+                chassis1.setPosition(0);
+                chassis2.setPosition(0);
             }
 
 
@@ -103,7 +115,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             } else if (this.gamepad1.right_stick_y > 0) {
                 Grab.setPosition(0);
             } else {
-                Grab.setPosition(.5);
+                Grab.setPosition(.6);
             }
 
 
@@ -112,18 +124,16 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
 
 //TRANSMIT POWER INFO TO HUB
             motorLeft.setPower(powerLeft); //Drive
-            motorRight.setPower((powerRight));
-
+            motorRight.setPower(powerRight);
+            motorStrafe.setPower(strafePower);
             armA1.setPower(armPower); //Stage 1
-
-            armA2.setPower(armPower2); //Stage 2
-            //    armB2.setPower(-armPower2); //Stage 2
 
 
             telemetry.addData("Left Drive Motor Power", motorLeft.getPower());
             telemetry.addData("Right Drive Motor Power", motorRight.getPower());
-            telemetry.addData("Stage 1 Power", armA1.getPower());
-            telemetry.addData("Stage 2 Power", armA2.getPower());
+            telemetry.addData("Strafe Power", motorStrafe.getPower());
+            telemetry.addData("Arm Power", armA1.getPower());
+
             telemetry.addData("Servo Position", Grab.getPosition());
             telemetry.addData("Distance (cm)", sensorCRFront.getDistance(DistanceUnit.CM));
             telemetry.addData("Status", "Running");
