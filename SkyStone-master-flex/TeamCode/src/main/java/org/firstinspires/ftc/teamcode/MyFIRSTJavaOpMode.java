@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;  //IMPORT DIFFERENT STUFF - NOT IMPORTANT
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 @TeleOp //FIX
 
 public class MyFIRSTJavaOpMode extends LinearOpMode {
-    private DcMotor motorLeft;
+    private DcMotor motorLeft; //Not relevant
     private DcMotor motorRight;
     private DcMotor armA1;
     private DcMotor motorStrafe;
@@ -28,7 +28,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        motorLeft = hardwareMap.get(DcMotor.class, "left");
+        motorLeft = hardwareMap.get(DcMotor.class, "left");     //Create devices - don't worry about this
         motorRight = hardwareMap.get(DcMotor.class, "right");
         armA1 = hardwareMap.get(DcMotor.class, "ArmA1");
         motorStrafe = hardwareMap.get(DcMotor.class, "strafe");
@@ -40,7 +40,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         telemetry.update();         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         // run until the end of the match (driver presses STOP)
-        double powerLeft = 0;
+        double powerLeft = 0; //Variables used throughout the program
         double powerRight = 0;
         double armPower = 0;
         double strafePower = 0;
@@ -48,8 +48,8 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
         double y;
         double h;
         while (opModeIsActive()) {
-            x = this.gamepad1.left_stick_x; //Get x value
-            y = this.gamepad1.left_stick_y; //Get y value
+            x = this.gamepad1.left_stick_x; //Get x value of joystick
+            y = this.gamepad1.left_stick_y; //Get y value of joystick
             h = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)); //Get distance from center ("h")
 
             if(y < 0) { //allow reverse movement
@@ -99,7 +99,7 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 armPower = 0;
             }
 
-            if(gamepad1.x) {
+            if(gamepad1.x) { //Chassis servos - grab foundation
                 chassis1.setPosition(90);
                 chassis1.setPosition(90);
             }
@@ -125,11 +125,11 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
 //TRANSMIT POWER INFO TO HUB
             motorLeft.setPower(powerLeft); //Drive
             motorRight.setPower(powerRight);
-            motorStrafe.setPower(strafePower);
+            motorStrafe.setPower(strafePower); //Strafe
             armA1.setPower(armPower); //Stage 1
 
 
-            telemetry.addData("Left Drive Motor Power", motorLeft.getPower());
+            telemetry.addData("Left Drive Motor Power", motorLeft.getPower()); //Print info to Driver Phone
             telemetry.addData("Right Drive Motor Power", motorRight.getPower());
             telemetry.addData("Strafe Power", motorStrafe.getPower());
             telemetry.addData("Arm Power", armA1.getPower());
