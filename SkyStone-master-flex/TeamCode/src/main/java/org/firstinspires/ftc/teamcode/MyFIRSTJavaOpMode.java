@@ -26,17 +26,14 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
     private Servo grabPivot;
     private DistanceSensor front;
 
-
-
-
     @Override
     public void runOpMode() {
         motorLeft = hardwareMap.get(DcMotor.class, "left");     //Create devices - don't worry about this
         motorRight = hardwareMap.get(DcMotor.class, "right");
         armA1 = hardwareMap.get(DcMotor.class, "ArmA1");
         motorStrafe = hardwareMap.get(DcMotor.class, "strafe");
-        grab = hardwareMap.get(Servo.class, "Grab");
-        grab2 = hardwareMap.get(Servo.class, "Grab2");
+        grab = hardwareMap.get(Servo.class, "grab");
+        grab2 = hardwareMap.get(Servo.class, "grab2");
         grabPivot = hardwareMap.get(Servo.class, "grabPivot");
         //LeftFound = hardwareMap.get(Servo.class, "LeftFound");
         //RightFound = hardwareMap.get(Servo.class, "LeftFound");
@@ -66,16 +63,6 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             armPower = y / 2;
 
 
-//Check if the bumper is pressed; this causes a pivot. A pivot will OVERRIDE previous math done.
-
-            if (gamepad1.left_bumper) {//Pivot Counterclockwise
-                powerLeft = 1; //Maximum right power
-                powerRight = 1; //Maximum left power (other direction)
-            }
-            else if (gamepad1.right_bumper) { //Clockwise direction
-                powerRight = -1; //Likewise
-                powerLeft = -1;
-            }//if else
 
 
 //Check for strafe power - this will not override other motor powers.
@@ -103,6 +90,18 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 powerRight = 0;
             }
 
+
+//Check if the bumper is pressed; this causes a pivot. A pivot will OVERRIDE previous math done.
+
+            if (gamepad1.left_bumper) {//Pivot Counterclockwise
+                powerLeft = 1; //Maximum right power
+                powerRight = 1; //Maximum left power (other direction)
+            }
+            else if (gamepad1.right_bumper) { //Clockwise direction
+                powerRight = -1; //Likewise
+                powerLeft = -1;
+            }//if else
+
 //Reduces power if precision mode is enabled
 
         if (prec) {
@@ -119,11 +118,11 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
                 grab.setPosition(180);
                 grab2.setPosition(0);
 
-            }
+            }//open
           else if (gamepad1.b) {
                 grab.setPosition(0);
                 grab2.setPosition(180);
-            }
+            }//close
 
           if (gamepad1.x) {
               grabPivot.setPosition(0);

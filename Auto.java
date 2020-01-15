@@ -23,12 +23,13 @@ public class Auto extends LinearOpMode
     private DcMotor motorRight;
     private DcMotor armA1;
     private DcMotor motorStrafe;
-    private Servo LeftFound;
-    private Servo RightFound;
+    private Servo leftFound;
+    private Servo rightFound;
     private Servo grab;
-    private Servo grab2;
+    private Servo found1;
     private Servo grabPivot;
     private DistanceSensor front;
+    private DistanceSensor back;
 
     // called when init button is  pressed.
 
@@ -39,35 +40,61 @@ public class Auto extends LinearOpMode
         motorRight = hardwareMap.get(DcMotor.class, "right");
         armA1 = hardwareMap.get(DcMotor.class, "ArmA1");
         motorStrafe = hardwareMap.get(DcMotor.class, "strafe");
-        grab = hardwareMap.get(Servo.class, "Grab");
-        grab2 = hardwareMap.get(Servo.class, "Grab2");
+        leftFound = hardwareMap.get(Servo.class, "found1");
+        grab = hardwareMap.get(Servo.class, "grab");
+
         grabPivot = hardwareMap.get(Servo.class, "grabPivot");
-        //LeftFound = hardwareMap.get(Servo.class, "LeftFound");
-        //RightFound = hardwareMap.get(Servo.class, "LeftFound");
+
         front = hardwareMap.get(DistanceSensor.class, "front");
-        //sensorCRBottom = hardwareMap.get(DistanceSensor.class, "sensorColorRangeFront");
-        //sensorCRSide = hardwareMap.get(DistanceSensor.class, "sensorColorRangeFront");
+        back = hardwareMap.get(DistanceSensor.class, "back");
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();         // Wait for the game to start (driver presses PLAY)
 
 
         telemetry.addData("Mode", "waiting");
         telemetry.addData("Front (cm)", front.getDistance(DistanceUnit.CM));
+        telemetry.addData("Back (cm)", back.getDistance(DistanceUnit.CM));
         telemetry.update();
 
         // wait for start button.
 
         waitForStart();
         while(opModeIsActive()) {
-            if (front.getDistance(DistanceUnit.CM) > 15 && front.getDistance(DistanceUnit.CM) < 2) {
-                motorStrafe.setPower(1);
-            } else {
-                motorStrafe.setPower(0);
-            }
+            motorStrafe.setPower(1);
+            while(true) {
 
-            telemetry.addData("Mode", "running");
-            telemetry.addData("Front (cm)", front.getDistance(DistanceUnit.CM));
-            telemetry.update();
+
+                if (front.getDistance(DistanceUnit.CM) < 15 && front.getDistance(DistanceUnit.CM) > 3) {
+                    motorStrafe.setPower(0);
+                    break;
+                } else {
+                    motorStrafe.setPower(1);
+                }
+
+                telemetry.addData("Mode", "running");
+                telemetry.addData("Front (cm)", front.getDistance(DistanceUnit.CM));
+                telemetry.addData("Back (cm)", back.getDistance(DistanceUnit.CM));
+                telemetry.update();
+            }
+            leftFound.setPosition(0);
+            motorStrafe.setPower(-1);
+            while(true) {
+
+
+                if (back.getDistance(DistanceUnit.CM) < 15 && back.getDistance(DistanceUnit.CM) > 3) {
+                    motorStrafe.setPower(0);
+                    break;
+                } else {
+                    motorStrafe.setPower(-1);
+                }
+
+                telemetry.addData("Mode", "running");
+                telemetry.addData("Front (cm)", front.getDistance(DistanceUnit.CM));
+                telemetry.addData("Back (cm)", back.getDistance(DistanceUnit.CM));
+                telemetry.update();
+            }
+            stop();
         }
     }
 }
