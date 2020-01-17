@@ -94,7 +94,7 @@ public class Auto extends LinearOpMode
                 telemetry.addData("Back (cm)", back.getDistance(DistanceUnit.CM));
                 telemetry.update();
             }
-            stop();
+            stop(); //stop? Not tested yet
         }
     }
 }

@@ -151,6 +151,6 @@ public class MyFIRSTJavaOpMode extends LinearOpMode {
             //telemetry.addData("R Servo Position", RightFound.getPosition());
             //telemetry.addData("L Servo Position: ", LeftFound.getPosition());
             telemetry.addData("Status", "Running");
-            telemetry.update();
+            telemetry.update();  //update
         }
     }}
